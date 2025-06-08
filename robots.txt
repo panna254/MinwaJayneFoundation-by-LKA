@@ -1,0 +1,118 @@
+# Minwa Jayne Foundation Robots.txt
+# Last Updated: 2025-06-08
+
+# Sitemap
+Sitemap: https://www.minwajaynefoundation.org/sitemap.xml
+
+# Default directives for all crawlers
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /wp-login.php
+Disallow: /wp-register.php
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Allow crawling of important directories
+Allow: /assets/
+Allow: /images/
+Allow: /js/
+Allow: /css/
+
+# Crawl-delay in seconds
+Crawl-delay: 10
+
+# Specific directives for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 10
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 10
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 10
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 10
+
+# Block common crawler abuse
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+# Block common spam bots
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+User-agent: EmailWolf
+Disallow: /
+
+User-agent: ExtractorPro
+Disallow: /
+
+User-agent: SiteSnagger
+Disallow: /
+
+# Block common aggressive crawlers
+User-agent: WebCopier
+Disallow: /
+
+User-agent: WebStripper
+Disallow: /
+
+User-agent: WebZIP
+Disallow: /
+
+# Block bad bots
+User-agent: Wget
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: libwww
+Disallow: /
+
+User-agent: lwp-trivial
+Disallow: /
+
+# Block known malicious bots
+User-agent: Zao
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: grub-client
+Disallow: /
+
+User-agent: grub
+Disallow: /
+
+User-agent: Teleport
+Disallow: /
+
+User-agent: TeleportPro
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /

@@ -1,0 +1,83 @@
+/* Image Optimization Styles */
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+    transition: opacity 0.3s ease-in-out;
+}
+
+img[loading="lazy"][src] {
+    opacity: 0;
+}
+
+img[loading="lazy"][src][data-loaded] {
+    opacity: 1;
+}
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* WebP Support */
+@supports (object-fit: cover) {
+    img {
+        object-fit: cover;
+    }
+}
+
+/* Image Loading States */
+[data-loading="lazy"] {
+    background-color: #f5f5f5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23d81b60' d='M100 30a70 70 0 1 1 0 140 70 70 0 0 1 0-140z'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Carousel Optimization */
+.hero-carousel img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Image Loading Animation */
+@keyframes imageLoad {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+img[data-loaded] {
+    animation: imageLoad 0.3s ease-in-out forwards;
+}
+
+/* Image Container Optimization */
+.image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Retina Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .retina-image {
+        background-size: 50%;
+    }
+}

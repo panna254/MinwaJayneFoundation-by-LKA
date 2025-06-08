@@ -1,0 +1,107 @@
+/* Critical CSS for above-the-fold content */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    color: #2c3e50;
+}
+
+/* Above-the-fold content */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 997;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero section */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/hero-carousel/1.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Performance optimizations */
+
+/* Critical font loading */
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('../fonts/Roboto-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+/* Will-change optimization */
+.hero-carousel {
+    will-change: transform;
+}
+
+/* Container queries */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Preload critical assets */
+@supports (display: grid) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+}
+
+/* Font optimization */
+body {
+    font-display: swap;
+}
+
+/* Image optimization */
+picture {
+    display: contents;
+}
+
+/* Animation optimization */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Prefetch optimization */
+body {
+    font-display: swap;
+}
+
+/* CSS containment */
+.hero {
+    contain: layout paint;
+}
+
+/* Paint optimization */
+body {
+    contain-intrinsic-size: 100% 100%;
+}
+
+/* Layout optimization */
+.container {
+    contain: layout;
+}
+
+/* Performance monitoring */
+[data-perf] {
+    transition: opacity 0.3s ease-in-out;
+}
