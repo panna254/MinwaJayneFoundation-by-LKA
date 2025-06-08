@@ -1,0 +1,86 @@
+<!-- Header -->
+<header id="header" class="header navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center justify-content-start me-auto" href="index.html">
+            <img src="assets/img/logo.png" alt="MinwaJayne Foundation Logo" class="header-logo-img me-2" />
+            <h1 class="sitename mb-0">MINWAJAYNE FOUNDATION BY LKA</h1>
+        </a>
+        
+        <div class="header-social-links d-flex align-items-center mx-2 order-2 order-md-3">
+            <a href="#" class="twitter text-dark me-2"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook text-dark me-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram text-dark"><i class="bi bi-instagram"></i></a>
+        </div>
+
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <nav class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>About</span>
+                        <i class="bi bi-chevron-down toggle-dropdown"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html#about">Our Story</a></li>
+                        <li><a class="dropdown-item" href="about.html#mission">Our Mission</a></li>
+                        <li><a class="dropdown-item" href="about.html#vision">Our Vision</a></li>
+                        <li><a class="dropdown-item" href="about.html#leadership">Our Leadership</a></li>
+                        <li><a class="dropdown-item" href="about.html#founder">Meet the Founder</a></li>
+                        <li><a class="dropdown-item" href="about.html#get-involved">Get Involved</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Key Programs.html">Key Programs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Add this script at the bottom of the page -->
+<script>
+    // Add active class to current page in navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentPage = window.location.pathname.split('/').pop();
+        if (currentPage === 'index.html' || currentPage === '') {
+            currentPage = 'index.html';
+        }
+        
+        // Handle dropdown menu
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownLink = dropdown.querySelector('a');
+        const dropdownMenu = dropdown.querySelector('ul');
+        
+        dropdownLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Add active class to current page
+        const navLinks = document.querySelectorAll('#navmenu a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
