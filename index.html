@@ -127,8 +127,8 @@
 
     <!-- Header -->
     <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container position-relative d-flex align-items-center justify-content-between flex-row flex-nowrap w-100">
-            <a href="index.html" class="logo d-flex align-items-center justify-content-start me-auto" style="min-width:0;">
+        <div class="container position-relative d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center justify-content-start me-auto">
                 <img src="assets/img/logo.png" alt="MinwaJayne Foundation Logo" class="header-logo-img" />
                 <h1 class="sitename mb-0 ms-2">MINWAJAYNE FOUNDATION BY LKA</h1>
             </a>
@@ -152,24 +152,7 @@
             </div>
         </div>
     </header>
-
-    <!-- Add this script to handle active navigation menu -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentPage = window.location.pathname.split('/').pop();
-            if (currentPage === 'index.html' || currentPage === '') {
-                currentPage = 'index.html';
-            }
-            
-            const navLinks = document.querySelectorAll('#navmenu a');
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-
+  
   <main class="main">
 
     <!-- Hero Section -->
@@ -544,6 +527,8 @@
     color: #fff;
     border: none;
   }
+
+
   .btn-pink:hover, .btn-pink:focus {
     background-color: #d81b60;
     color: #fff;

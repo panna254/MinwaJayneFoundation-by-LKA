@@ -39,6 +39,10 @@
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
+
+
+/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+
 .light-background {
   --background-color: #fff;
   --surface-color: #fff;
