@@ -1,0 +1,70 @@
+.thank-you-section {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.thank-you-section .section-title {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.thank-you-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #ff69b4;
+}
+
+.thank-you-section h2::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #ff69b4;
+    bottom: 0;
+    left: calc(50% - 25px);
+}
+
+.thank-you-section p {
+    font-size: 18px;
+    color: #000;
+    line-height: 26px;
+}
+
+.thank-you-section .btn-primary {
+    background: #ff69b4;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: 0.3s;
+    margin: 10px;
+    color: white;
+}
+
+.thank-you-section .btn-primary:hover {
+    background: #ff1493;
+}
+
+.thank-you-section .btn-outline-primary {
+    color: #ff69b4;
+    border: 2px solid #ff69b4;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: 0.3s;
+    margin: 10px;
+}
+
+.thank-you-section .btn-outline-primary:hover {
+    background: #ff69b4;
+    color: white;
+}
+
+.thank-you-section .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
