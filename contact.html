@@ -189,6 +189,16 @@
               <div style="display: none;">
                 <label>Don't fill this out if you're human: <input name="bot-field"></label>
               </div>
+              <!-- Add email recipient for Netlify -->
+              <input type="hidden" name="_subject" value="New contact form submission">
+              <input type="hidden" name="_next" value="/thank-you">
+              <input type="hidden" name="_cc" value="minwajaynef@gmail.com">
+              <!-- Add custom success message container -->
+              <div class="form-messages">
+                <div class="loading d-none">Sending...</div>
+                <div class="error-message text-danger"></div>
+                <div class="sent-message text-success"></div>
+              </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>

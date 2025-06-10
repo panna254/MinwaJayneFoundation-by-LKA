@@ -269,6 +269,7 @@
       // Form submission
       form.addEventListener('submit', function(e) {
         e.preventDefault();
+        e.stopPropagation(); // Prevent any default form behavior
         
         // Validate all fields
         let isValid = true;
@@ -317,9 +318,21 @@
         })
         .then(data => {
           if (data.success) {
+            // Reset form and show success message
             form.reset();
             loading.classList.add('d-none');
             successMessage.textContent = 'Your message has been sent. Thank you!';
+            
+            // Remove any Netlify overlay
+            const overlay = document.querySelector('.netlify-overlay');
+            if (overlay) {
+              overlay.remove();
+            }
+            
+            // Add a small delay before re-enabling button
+            setTimeout(() => {
+              submitButton.disabled = false;
+            }, 1000);
           } else {
             throw new Error('Form submission failed');
           }
@@ -327,12 +340,9 @@
         .catch(error => {
           loading.classList.add('d-none');
           errorMessage.textContent = 'Error: ' + error.message;
-        })
-        .finally(() => {
           submitButton.disabled = false;
         });
       });
     });
   });
-
-})();
+});
