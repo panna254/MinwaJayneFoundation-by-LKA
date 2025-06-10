@@ -182,7 +182,7 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/" id="contactForm" class="php-email-form">
+            <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you" id="contactForm" class="php-email-form">
               <!-- Add hidden input for Netlify -->
               <input type="hidden" name="form-name" value="contact">
               <!-- Add honeypot field for spam protection -->
@@ -191,8 +191,13 @@
               </div>
               <!-- Add email recipient for Netlify -->
               <input type="hidden" name="_subject" value="New contact form submission">
-              <input type="hidden" name="_next" value="/thank-you">
               <input type="hidden" name="_cc" value="minwajaynef@gmail.com">
+              <!-- Add thank you message container -->
+              <div class="form-messages">
+                <div class="loading d-none">Sending...</div>
+                <div class="error-message text-danger"></div>
+                <div class="sent-message text-success"></div>
+              </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>

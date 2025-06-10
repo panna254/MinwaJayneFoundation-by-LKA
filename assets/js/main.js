@@ -268,31 +268,31 @@
 
       // Form submission
       form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validate all fields
-        let isValid = true;
-        inputs.forEach(input => {
-          if (input.type === 'email') {
-            isValid = validateEmail(input) && isValid;
-          } else {
-            isValid = validateField(input) && isValid;
-          }
-        });
-
-        if (!isValid) return;
-
-        // Get form elements
-        const submitButton = form.querySelector('button[type="submit"]');
-
-        // Show loading
-        loading.classList.remove('d-none');
-        errorMessage.textContent = '';
-        successMessage.textContent = '';
-        submitButton.disabled = true;
-
-        // For local testing
+        // Only prevent default for local testing
         if (window.location.hostname === 'localhost' || window.location.hostname === '') {
+          e.preventDefault();
+          
+          // Validate all fields
+          let isValid = true;
+          inputs.forEach(input => {
+            if (input.type === 'email') {
+              isValid = validateEmail(input) && isValid;
+            } else {
+              isValid = validateField(input) && isValid;
+            }
+          });
+
+          if (!isValid) return;
+
+          // Get form elements
+          const submitButton = form.querySelector('button[type="submit"]');
+
+          // Show loading
+          loading.classList.remove('d-none');
+          errorMessage.textContent = '';
+          successMessage.textContent = '';
+          submitButton.disabled = true;
+
           // Simulate form submission after 2 seconds
           setTimeout(() => {
             form.reset();
@@ -300,39 +300,7 @@
             successMessage.textContent = 'Your message has been sent. Thank you!';
             submitButton.disabled = false;
           }, 2000);
-          return;
         }
-
-        // Submit form using Netlify's form handling
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // Reset form and show success message
-            form.reset();
-            loading.classList.add('d-none');
-            successMessage.textContent = 'Your message has been sent. Thank you!';
-            
-            // Remove any Netlify overlay
-            const overlay = document.querySelector('.netlify-overlay');
-            if (overlay) {
-              overlay.remove();
-            }
-          } else {
-            throw new Error('Form submission failed');
-          }
-        })
-        .catch(error => {
-          loading.classList.add('d-none');
-          errorMessage.textContent = 'Error: ' + error.message;
-        })
-        .finally(() => {
-          submitButton.disabled = false;
-        });
       });
     });
   });
