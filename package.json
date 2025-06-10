@@ -1,0 +1,12 @@
+{
+  "name": "minwajayne-foundation",
+  "version": "1.0.0",
+  "description": "Minwa Jayne Foundation website",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "netlify build"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.0.0"
+  }
+}

@@ -150,11 +150,8 @@
           <h2>Contact Us</h2>
           <p>Get in touch with us for any inquiries or questions</p>
         </div>
-
-        <div class="row gy-5 gx-lg-5">
-
+        <div class="row">
           <div class="col-lg-4">
-
             <div class="info p-4 bg-light rounded-3">
               <h3 class="mb-4">Get in touch</h3>
               <p class="mb-4">Feel free to reach out to us for any inquiries or questions.</p>
@@ -182,47 +179,35 @@
                   <p>+254 712 189 706</p>
                 </div>
               </div><!-- End Info Item -->
-
             </div>
-
           </div>
-
           <div class="col-lg-8">
-            <div class="contact-form-container p-4 bg-light rounded-3">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form" id="contactForm">
+            <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <label for="name" class="form-label">Your Name *</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" required>
-                  <div class="validation"></div>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <label for="email" class="form-label">Your Email *</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email address" required>
-                  <div class="validation"></div>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
               </div>
               <div class="form-group mt-3">
-                <label for="subject" class="form-label">Subject *</label>
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter your subject" required>
-                <div class="validation"></div>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <label for="message" class="form-label">Message *</label>
-                <textarea class="form-control" name="message" rows="5" placeholder="Enter your message" required></textarea>
-                <div class="validation"></div>
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
               <div class="my-3">
-                <div class="loading d-none">Sending message...</div>
+                <div class="loading">Loading</div>
                 <div class="error-message"></div>
-                <div class="sent-message d-none">Your message has been sent successfully. Thank you!</div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">Send Message</button>
-              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
-            </div>
-          </div><!-- End Contact Form -->
+          </div>
+        </div>
+
+
 
         </div>
 
@@ -241,50 +226,31 @@
             const errorMessage = form.querySelector('.error-message');
             const successMessage = form.querySelector('.sent-message');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Show loading state
-                submitBtn.style.display = 'none';
-                loading.classList.remove('d-none');
-                
-                // Simulate form submission (replace with actual form submission)
-                setTimeout(() => {
-                    loading.classList.add('d-none');
-                    successMessage.classList.remove('d-none');
-                    form.reset();
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        successMessage.classList.add('d-none');
-                        submitBtn.style.display = 'block';
-                    }, 5000);
-                }, 2000);
-            });
+            const inputs = form.querySelectorAll('input, textarea');
 
-            // Add validation for each field
-            const validateField = (input) => {
+            function validateField(input) {
                 const validationDiv = input.nextElementSibling;
                 if (input.value.trim() === '') {
                     validationDiv.textContent = `${input.getAttribute('placeholder')} is required`;
+                    return false;
                 } else {
                     validationDiv.textContent = '';
+                    return true;
                 }
-            };
+            }
 
-            // Validate email format
-            const validateEmail = (email) => {
+            function validateEmail(email) {
                 const validationDiv = email.nextElementSibling;
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email.value.trim())) {
                     validationDiv.textContent = 'Please enter a valid email address';
+                    return false;
                 } else {
                     validationDiv.textContent = '';
+                    return true;
                 }
-            };
+            }
 
-            // Add validation on blur
-            const inputs = form.querySelectorAll('input, textarea');
             inputs.forEach(input => {
                 input.addEventListener('blur', () => {
                     if (input.type === 'email') {
@@ -293,6 +259,52 @@
                         validateField(input);
                     }
                 });
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (input.type === 'email') {
+                        if (!validateEmail(input)) {
+                            isValid = false;
+                        }
+                    } else {
+                        if (!validateField(input)) {
+                            isValid = false;
+                        }
+                    }
+                });
+
+                if (!isValid) return;
+
+                loading.style.display = 'block';
+                submitBtn.disabled = true;
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: { 'Accept': 'application/json' },
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        successMessage.style.display = 'block';
+                        form.reset();
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    errorMessage.style.display = 'block';
+                    errorMessage.textContent = 'Failed to send message. Please try again.';
+                } finally {
+                    loading.style.display = 'none';
+                    submitBtn.disabled = false;
+                }
             });
         });
     </script>
