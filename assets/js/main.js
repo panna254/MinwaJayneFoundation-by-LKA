@@ -269,7 +269,6 @@
       // Form submission
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        e.stopPropagation(); // Prevent any default form behavior
         
         // Validate all fields
         let isValid = true;
@@ -310,12 +309,7 @@
           headers: { 'Accept': 'application/json' },
           body: new FormData(form)
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
           if (data.success) {
             // Reset form and show success message
@@ -328,11 +322,6 @@
             if (overlay) {
               overlay.remove();
             }
-            
-            // Add a small delay before re-enabling button
-            setTimeout(() => {
-              submitButton.disabled = false;
-            }, 1000);
           } else {
             throw new Error('Form submission failed');
           }
@@ -340,9 +329,12 @@
         .catch(error => {
           loading.classList.add('d-none');
           errorMessage.textContent = 'Error: ' + error.message;
+        })
+        .finally(() => {
           submitButton.disabled = false;
         });
       });
     });
   });
-});
+
+})();
