@@ -183,6 +183,12 @@
           </div>
           <div class="col-lg-8">
             <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm" class="php-email-form">
+              <!-- Add hidden input for Netlify -->
+              <input type="hidden" name="form-name" value="contact">
+              <!-- Add honeypot field for spam protection -->
+              <div style="display: none;">
+                <label>Don't fill this out if you're human: <input name="bot-field"></label>
+              </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -198,11 +204,13 @@
                 <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
               <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="loading d-none">Loading...</div>
+                <div class="error-message text-danger"></div>
+                <div class="sent-message text-success"></div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+              </div>
             </form>
           </div>
         </div>
