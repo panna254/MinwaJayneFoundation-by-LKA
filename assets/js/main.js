@@ -220,4 +220,114 @@
 
   window.addEventListener("load", initSwiper);
 
+  // Form handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.php-email-form');
+    
+    // Form validation functions
+    function validateField(input) {
+      const validationDiv = input.nextElementSibling;
+      if (input.value.trim() === '') {
+        validationDiv.textContent = `${input.getAttribute('placeholder')} is required`;
+        return false;
+      } else {
+        validationDiv.textContent = '';
+        return true;
+      }
+    }
+
+    function validateEmail(email) {
+      const validationDiv = email.nextElementSibling;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        validationDiv.textContent = 'Please enter a valid email address';
+        return false;
+      } else {
+        validationDiv.textContent = '';
+        return true;
+      }
+    }
+
+    forms.forEach(function(form) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const loading = form.querySelector('.loading');
+      const errorMessage = form.querySelector('.error-message');
+      const successMessage = form.querySelector('.sent-message');
+      const inputs = form.querySelectorAll('input, textarea');
+
+      // Add validation on blur
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+          if (input.type === 'email') {
+            validateEmail(input);
+          } else {
+            validateField(input);
+          }
+        });
+      });
+
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate all fields
+        let isValid = true;
+        inputs.forEach(input => {
+          if (input.type === 'email') {
+            isValid = validateEmail(input) && isValid;
+          } else {
+            isValid = validateField(input) && isValid;
+          }
+        });
+
+        if (!isValid) return;
+
+        // Get form elements
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // Show loading
+        loading.classList.remove('d-none');
+        errorMessage.textContent = '';
+        successMessage.textContent = '';
+        submitButton.disabled = true;
+
+        // For local testing
+        if (window.location.hostname === 'localhost' || window.location.hostname === '') {
+          // Simulate form submission after 2 seconds
+          setTimeout(() => {
+            form.reset();
+            loading.classList.add('d-none');
+            successMessage.textContent = 'Your message has been sent. Thank you!';
+            submitButton.disabled = false;
+          }, 2000);
+          return;
+        }
+
+        // Submit form using Netlify's form handling
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            form.reset();
+            loading.classList.add('d-none');
+            successMessage.textContent = 'Your message has been sent. Thank you!';
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(error => {
+          loading.classList.add('d-none');
+          errorMessage.textContent = 'Error: ' + error.message;
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+        });
+      });
+    });
+  });
+
 })();
